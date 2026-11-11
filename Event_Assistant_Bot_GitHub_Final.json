@@ -1,0 +1,103 @@
+{
+  "name": "Event Assistant Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "chat-trigger-node",
+      "name": "When chat message received"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an Event Assistant Bot.\n\nYour job is to help attendees with event-related questions.\n\nEvent Name: Tech Innovation Summit 2026\nDate: November 20, 2026\nTime: 9:00 AM to 5:00 PM\nVenue: Main Auditorium, Sargodha University.\n\nAgenda:\n9:00 AM - Registration\n10:00 AM - Opening Ceremony\n11:00 AM - AI and Machine Learning Session\n12:00 PM - Cybersecurity Session\n1:00 PM - Lunch Break\n2:00 PM - Web Development Workshop\n3:30 PM - Guest Speaker Session\n4:30 PM - Closing Ceremony\n\nSpeakers:\n- Dr. Ahmed: AI and Machine Learning\n- Ms. Sara: Cybersecurity\n- Mr. Ali: Web Development\n\nRules:\n- Answer using only the event information provided.\n- Be friendly and helpful.\n- If information is unavailable, say you don't have that information.\n- Keep answers simple and concise.\n- Help attendees find sessions, speakers, timings, and venue details.\n- If the user sends an empty or unclear message, politely ask them to provide their event-related question.\n- Do not invent event information.\n- If a question is unrelated to the event, politely explain that you can only help with event-related information."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        160,
+        0
+      ],
+      "id": "ai-agent-node",
+      "name": "AI Agent",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        160
+      ],
+      "id": "gemini-model-node",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        256,
+        96
+      ],
+      "id": "simple-memory-node",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "tags": []
+}
