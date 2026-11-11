@@ -127,4 +127,13 @@ Import it into n8n and configure your own Gemini credentials before running it.
 **Project Number:** 03  
 **Developer:** Kinza
 
+## 12. Project Screenshots
 
+### Event Agenda
+![Event Agenda](event-agenda.png)
+
+### Speaker Information
+![Event Speakers](event-speakers.png)
+
+### n8n Workflow Architecture
+![Workflow Architecture](workflow-architecture.png)
