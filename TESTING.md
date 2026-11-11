@@ -14,14 +14,15 @@
 | Ask a follow-up question | Answers using conversation context | Passed |
 | Open public chat URL | Chatbot loads and responds | Passed |
 
-## Technical Testing
-
+## Technical Tests
 
 - [x] Invalid or unclear input handling
 - [x] Unrelated questions are politely rejected
 - [ ] Gemini API failure handling
 - [ ] Workflow execution error handling
-- [ ] Retry behavior
+- [ ] Retry behavior (configured: 3 attempts, 1000 ms wait)
+
+
 ## Tools Used
 
 - n8n
