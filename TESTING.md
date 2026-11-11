@@ -16,11 +16,12 @@
 
 ## Technical Testing
 
-- [ ] Gemini API failure handling
-- [ ] Invalid or missing input handling
-- [ ] Workflow execution error handling
-- [ ] Retry behavior for failed API requests
 
+- [x] Invalid or unclear input handling
+- [x] Unrelated questions are politely rejected
+- [ ] Gemini API failure handling
+- [ ] Workflow execution error handling
+- [ ] Retry behavior
 ## Tools Used
 
 - n8n
