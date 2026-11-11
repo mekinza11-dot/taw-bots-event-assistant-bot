@@ -1,0 +1,104 @@
+{
+  "name": "Event Assistant Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2d675aab-9fac-4bcf-a060-d7edabe28085",
+      "name": "When chat message received"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an Event Assistant Bot.\n\nYour job is to help attendees with event-related questions.\n\nEvent Name: Tech Innovation Summit 2026\nDate: November 20, 2026\nTime: 9:00 AM to 5:00 PM\nVenue: Main Auditorium, Sargodha University.\n\nAgenda:\n9:00 AM - Registration\n10:00 AM - Opening Ceremony\n11:00 AM - AI and Machine Learning Session\n12:00 PM - Cybersecurity Session\n1:00 PM - Lunch Break\n2:00 PM - Web Development Workshop\n3:30 PM - Guest Speaker Session\n4:30 PM - Closing Ceremony\n\nSpeakers:\n- Dr. Ahmed: AI and Machine Learning\n- Ms. Sara: Cybersecurity\n- Mr. Ali: Web Development\n\nRules:\n- Answer using only the event information provided.\n- Be friendly and helpful.\n- If information is unavailable, say you don't have that information.\n- Keep answers simple and concise.\n- Help attendees find sessions, speakers, timings, and venue details."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        160,
+        0
+      ],
+      "id": "dbf54249-f3b5-4d06-a28d-1843c37612bb",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        160
+      ],
+      "id": "99dca61d-93f6-401f-bf90-449cdcff030f",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        256,
+        96
+      ],
+      "id": "82ba1f1d-756b-4974-8360-26bc41b8ffa8",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "nodeGroups": [],
+  "tags": []
+}
