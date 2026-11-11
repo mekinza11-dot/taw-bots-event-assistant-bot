@@ -137,3 +137,7 @@ Import it into n8n and configure your own Gemini credentials before running it.
 
 ### n8n Workflow Architecture
 ![Workflow Architecture](workflow-architecture.png)
+
+
+---
+Project status: Developed and tested.
